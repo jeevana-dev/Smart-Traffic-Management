@@ -1,60 +1,60 @@
-# Smart Traffic Management System
-
-A professional, responsive web application simulating an intelligent urban traffic control system with dynamic signal management based on three operational modes.
-
-## key features
-
-The Smart Traffic Management System is a frontend-based simulation that demonstrates modern web development practices including:
-- **State-based control logic** for traffic signal management
-- **Priority-based overrides** (Emergency > Public Transport > Normal)
-- **Responsive design** using Bootstrap 5 and custom glassmorphism CSS
-- **Real-time DOM manipulation** using Vanilla JavaScript
-- **Professional dashboard UI** with admin control panel aesthetics
-- # Smart Traffic Management System (Prototype)
+# Smart Traffic Management System (Prototype)
 
 ## 📌 Overview
-Smart Traffic Management System is an intelligent, prototype-level solution designed to address urban traffic congestion through data-driven decision-making and adaptive control strategies.
+The Smart Traffic Management System is a frontend-based simulation that demonstrates modern web development practices through an interactive and visually structured traffic control dashboard.
 
-The system focuses on improving traffic flow efficiency by analyzing real-time conditions and proposing optimized signal management and routing mechanisms.
+It models how intelligent traffic systems can operate using state-driven logic and priority-based decision-making within a responsive web interface.
 
 ---
 
 ## 🚀 Key Features
 
-- 🚦 Intelligent traffic signal optimization (concept-based)  
-- 📊 Traffic density analysis for congestion detection  
-- 🛣️ Smart route suggestion to reduce travel time  
-- ⏱️ Dynamic control strategies based on traffic conditions  
-- 📍 Scalable architecture for urban traffic scenarios  
+- 🚦 State-based traffic signal control logic  
+- ⚡ Priority-based overrides  
+  *(Emergency > Public Transport > Normal traffic)*  
+- 📊 Interactive dashboard-style UI for monitoring and control  
+- 🔄 Real-time DOM manipulation using Vanilla JavaScript  
+- 🎨 Responsive design with Bootstrap 5  
+- ✨ Modern glassmorphism-based UI styling  
+- 🖥️ Admin panel-inspired interface for system simulation  
 
 ---
 
-## 🧠 System Concept
-The project is built around the idea of transforming traditional static traffic systems into adaptive, responsive networks. By leveraging logical decision-making and data interpretation, the system aims to minimize delays, reduce congestion, and enhance overall road efficiency.
+## 🧠 System Design
+The system simulates real-world traffic scenarios by dynamically managing signal states based on predefined priorities. It demonstrates how decision logic can be implemented at the interface level to reflect intelligent control mechanisms without backend dependency.
 
 ---
 
 ## 🛠️ Tech Stack
-- (Add your technologies here — e.g., Python / HTML / JavaScript / etc.)
+
+- HTML  
+- CSS (Glassmorphism design)  
+- Bootstrap 5  
+- JavaScript (Vanilla JS, DOM manipulation)  
 
 ---
 
 ## 👩‍💻 My Contribution
-- Designed the system architecture and workflow  
-- Developed the prototype model and logic  
-- Implemented core functionalities and interface  
+
+- Designed and developed the complete frontend system  
+- Implemented traffic control logic using state-based conditions  
+- Built responsive UI with modern design principles  
+- Simulated priority handling mechanisms for real-time scenarios  
 
 ---
 
 ## 📌 Status
-⚠️ Prototype implementation focused on concept validation and system design.
+
+⚠️ Prototype simulation focused on frontend architecture and logic demonstration.
 
 ---
 
 ## 🎯 Objective
-To explore and demonstrate how intelligent systems can be applied to real-world traffic management challenges for smarter and more efficient urban mobility.
+
+To demonstrate how modern frontend technologies can be used to simulate intelligent traffic systems and visualize decision-making processes in a structured and user-friendly manner.
 
 ---
 
 ## 📬 Contact
-Open to collaboration, feedback, and internship opportunities.
+
+Open to internship opportunities, collaboration, and feedback.
