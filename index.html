@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-traffic-light"></i> Traffic Control
+            </h4>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-link active">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a href="signal.html" class="nav-link">
+                <i class="bi bi-lightbulb"></i> Signal Simulation
+            </a>
+            <a href="public.html" class="nav-link">
+                <i class="bi bi-bus-front"></i> Public Priority
+            </a>
+            <a href="accident.html" class="nav-link">
+                <i class="bi bi-exclamation-triangle"></i> Emergency Mode
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <small>v1.0 | Smart City System</small>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <nav class="top-navbar">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h5 class="mb-0">
+                    <i class="bi bi-speedometer2"></i> Traffic Control Dashboard
+                </h5>
+                <div class="d-flex align-items-center gap-3">
+                    <span id="currentTime" class="time-display">00:00:00</span>
+                    <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Alert Banner -->
+        <div id="alertBanner" class="alert-banner" style="display: none;"></div>
+
+        <!-- Content Container -->
+        <div class="content-container">
+            <!-- System Status Section -->
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <i class="bi bi-lightbulb"></i>
+                        </div>
+                        <h6 class="card-label">Signal Status</h6>
+                        <p id="signalStatus" class="card-value">STOPPED</p>
+                        <small class="card-meta">Current state</small>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <i class="bi bi-bus-front"></i>
+                        </div>
+                        <h6 class="card-label">Public Priority</h6>
+                        <p id="publicStatus" class="card-value">INACTIVE</p>
+                        <small class="card-meta">Priority detection</small>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                        <h6 class="card-label">Emergency Alert</h6>
+                        <p id="emergencyStatus" class="card-value">CLEAR</p>
+                        <small class="card-meta">System status</small>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <i class="bi bi-gear"></i>
+                        </div>
+                        <h6 class="card-label">Operation Mode</h6>
+                        <p id="operationMode" class="card-value">NORMAL</p>
+                        <small class="card-meta">Active mode</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Panel Section -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-play-circle"></i> Signal Control
+                        </h5>
+                        <div class="d-flex gap-2">
+                            <button id="startBtn" class="btn btn-control btn-success">
+                                <i class="bi bi-play-fill"></i> Start
+                            </button>
+                            <button id="stopBtn" class="btn btn-control btn-warning">
+                                <i class="bi bi-pause-fill"></i> Stop
+                            </button>
+                            <button id="resetBtn" class="btn btn-control btn-secondary">
+                                <i class="bi bi-arrow-clockwise"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-info-circle"></i> System Information
+                        </h5>
+                        <p class="text-muted mb-2">
+                            <strong>Signal Cycle:</strong> Red 5s → Yellow 2s → Green 5s
+                        </p>
+                        <p class="text-muted mb-2">
+                            <strong>Priority System:</strong> Emergency > Public > Normal
+                        </p>
+                        <p class="text-muted">
+                            <strong>Mode:</strong> <span id="modeInfo">Normal traffic operation</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDashboard();
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+
+        // Update dashboard with current state
+        function updateDashboard() {
+            const state = trafficSystem.getState();
+            document.getElementById('signalStatus').textContent = state.signalRunning ? 'RUNNING' : 'STOPPED';
+            document.getElementById('operationMode').textContent = state.mode.replace('_', ' ');
+            document.getElementById('publicStatus').textContent = state.mode === 'PUBLIC_PRIORITY' ? 'ACTIVE' : 'INACTIVE';
+            document.getElementById('emergencyStatus').textContent = state.mode === 'EMERGENCY' ? 'ALERT' : 'CLEAR';
+            
+            // Update mode info
+            const modeInfoMap = {
+                'NORMAL': 'Normal traffic operation',
+                'PUBLIC_PRIORITY': 'Public transport priority active',
+                'EMERGENCY': 'Emergency mode - highest priority'
+            };
+            document.getElementById('modeInfo').textContent = modeInfoMap[state.mode] || 'Unknown';
+
+            // Update button states
+            document.getElementById('startBtn').disabled = state.signalRunning;
+            document.getElementById('stopBtn').disabled = !state.signalRunning;
+            document.getElementById('resetBtn').disabled = state.signalRunning;
+        }
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+        }
+
+        // Event listeners for control buttons
+        document.getElementById('startBtn').addEventListener('click', () => {
+            trafficSystem.startSignal();
+            updateDashboard();
+        });
+
+        document.getElementById('stopBtn').addEventListener('click', () => {
+            trafficSystem.stopSignal();
+            updateDashboard();
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            trafficSystem.resetSignal();
+            updateDashboard();
+        });
+
+        // Monitor system state changes
+        setInterval(updateDashboard, 500);
+    </script>
+</body>
+</html>

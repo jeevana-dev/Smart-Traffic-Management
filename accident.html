@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Mode - Smart Traffic Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-traffic-light"></i> Traffic Control
+            </h4>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-link">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a href="signal.html" class="nav-link">
+                <i class="bi bi-lightbulb"></i> Signal Simulation
+            </a>
+            <a href="adaptive.html" class="nav-link">
+                <i class="bi bi-graph-up"></i> Adaptive Control
+            </a>
+            <a href="concept.html" class="nav-link">
+                <i class="bi bi-lightbulb-fill"></i> ATLC Concept
+            </a>
+            <a href="public.html" class="nav-link">
+                <i class="bi bi-bus-front"></i> Public Priority
+            </a>
+            <a href="accident.html" class="nav-link active">
+                <i class="bi bi-exclamation-triangle"></i> Emergency Mode
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <small>v1.0 | Smart City System</small>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <nav class="top-navbar">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h5 class="mb-0">
+                    <i class="bi bi-exclamation-triangle"></i> Emergency / Accident Mode
+                </h5>
+                <div class="d-flex align-items-center gap-3">
+                    <span id="currentTime" class="time-display">00:00:00</span>
+                    <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Emergency Alert Banner -->
+        <div id="emergencyBanner" class="emergency-banner" style="display: none;">
+            <div class="emergency-alert-content">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <span id="emergencyText">Emergency mode is ACTIVE</span>
+            </div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="content-container">
+            <!-- Emergency Status -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-6">
+                    <div class="glass-card text-center">
+                        <div class="emergency-icon mb-4">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                        <h5 class="mb-3">Emergency Response System</h5>
+                        <p id="emergencyStatus" class="status-text" style="font-size: 2rem; color: #ff6b6b; font-weight: bold;">
+                            CLEAR
+                        </p>
+                        <p class="text-muted">
+                            <small id="statusMessage">No emergency detected</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Section -->
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-exclamation-circle"></i> Emergency Controls
+                        </h5>
+                        <div class="d-grid gap-2">
+                            <button id="triggerBtn" class="btn btn-emergency btn-lg">
+                                <i class="bi bi-exclamation-triangle-fill"></i> Trigger Emergency
+                            </button>
+                            <button id="resolveBtn" class="btn btn-success btn-lg" disabled>
+                                <i class="bi bi-check-circle"></i> Resolve Emergency
+                            </button>
+                        </div>
+                        <div class="alert alert-warning mt-4 mb-0" role="alert">
+                            <strong><i class="bi bi-exclamation-triangle"></i> Critical System:</strong>
+                            <p class="mb-0 mt-2">
+                                Emergency mode has the HIGHEST priority and overrides all other modes. 
+                                When active, the signal cycles continuously through all colors in rapid succession 
+                                to alert all vehicles. Only manual resolution can deactivate this mode.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-exclamation-triangle"></i> Emergency Mode Details
+                        </h5>
+                        <table class="info-table">
+                            <tr>
+                                <td><strong>Mode Type:</strong></td>
+                                <td>Emergency / Accident</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Priority Level:</strong></td>
+                                <td>HIGHEST (1st tier)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Signal Behavior:</strong></td>
+                                <td>Rapid cycling + Alert</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Override Capability:</strong></td>
+                                <td>Overrides ALL modes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Deactivation:</strong></td>
+                                <td>Manual resolution only</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-lightbulb"></i> Expected Signal Behavior
+                        </h5>
+                        <p class="text-muted mb-3">
+                            When Emergency Mode is activated:
+                        </p>
+                        <ol class="text-muted">
+                            <li>All other modes are immediately suspended</li>
+                            <li>Signal rapidly cycles through RED → YELLOW → GREEN</li>
+                            <li>Emergency alert banner displays prominently</li>
+                            <li>All timers are overridden</li>
+                            <li>System waits for manual resolution</li>
+                            <li>After resolution, returns to previous mode</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current State -->
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-gear"></i> System State
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p><strong>Operation Mode:</strong></p>
+                                <p id="modeDisplay" class="badge bg-info" style="font-size: 0.9rem;">NORMAL</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p><strong>Current Signal:</strong></p>
+                                <p id="signalDisplay" class="badge bg-secondary" style="font-size: 0.9rem;">RED</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p><strong>Emergency Active:</strong></p>
+                                <p id="activeDisplay" class="badge bg-secondary" style="font-size: 0.9rem;">NO</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p><strong>Alert Status:</strong></p>
+                                <p id="alertDisplay" class="badge bg-secondary" style="font-size: 0.9rem;">CLEAR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDisplay();
+            updateTime();
+            setInterval(updateTime, 1000);
+            setInterval(updateDisplay, 100);
+        });
+
+        // Update display
+        function updateDisplay() {
+            const state = trafficSystem.getState();
+            const isEmergency = state.mode === 'EMERGENCY';
+
+            // Update emergency status
+            if (isEmergency) {
+                document.getElementById('emergencyStatus').textContent = 'ALERT';
+                document.getElementById('statusMessage').textContent = 'Emergency detected - All traffic priority override active';
+                document.getElementById('emergencyStatus').style.color = '#ff6b6b';
+                document.getElementById('triggerBtn').disabled = true;
+                document.getElementById('resolveBtn').disabled = false;
+                document.getElementById('emergencyBanner').style.display = 'block';
+                document.body.style.backgroundColor = 'rgba(255, 50, 50, 0.05)';
+            } else {
+                document.getElementById('emergencyStatus').textContent = 'CLEAR';
+                document.getElementById('statusMessage').textContent = 'No emergency detected';
+                document.getElementById('emergencyStatus').style.color = '#00ff88';
+                document.getElementById('triggerBtn').disabled = false;
+                document.getElementById('resolveBtn').disabled = true;
+                document.getElementById('emergencyBanner').style.display = 'none';
+                document.body.style.backgroundColor = '';
+            }
+
+            // Update system state display
+            document.getElementById('modeDisplay').textContent = state.mode.replace('_', ' ');
+            document.getElementById('signalDisplay').textContent = state.currentSignal;
+            document.getElementById('activeDisplay').textContent = isEmergency ? 'YES' : 'NO';
+            document.getElementById('activeDisplay').className = isEmergency ? 'badge bg-danger' : 'badge bg-secondary';
+            document.getElementById('alertDisplay').textContent = isEmergency ? 'ALERT' : 'CLEAR';
+            document.getElementById('alertDisplay').className = isEmergency ? 'badge bg-danger' : 'badge bg-secondary';
+        }
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+        }
+
+        // Event listeners
+        document.getElementById('triggerBtn').addEventListener('click', () => {
+            trafficSystem.triggerEmergency();
+            showAlert('EMERGENCY MODE ACTIVATED - All signals overridden!', 'danger');
+        });
+
+        document.getElementById('resolveBtn').addEventListener('click', () => {
+            trafficSystem.resolveEmergency();
+            showAlert('Emergency resolved. Returning to normal operation.', 'success');
+        });
+
+        // Show alert
+        function showAlert(message, type = 'success') {
+            const banner = document.getElementById('emergencyBanner');
+            const text = document.getElementById('emergencyText');
+            text.textContent = message;
+            if (type === 'danger') {
+                banner.style.backgroundColor = 'rgba(255, 50, 50, 0.8)';
+            } else {
+                banner.style.backgroundColor = 'rgba(76, 175, 80, 0.8)';
+            }
+        }
+    </script>
+</body>
+</html>

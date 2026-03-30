@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Signal Simulation - Smart Traffic Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-traffic-light"></i> Traffic Control
+            </h4>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-link">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a href="signal.html" class="nav-link active">
+                <i class="bi bi-lightbulb"></i> Signal Simulation
+            </a>
+            <a href="public.html" class="nav-link">
+                <i class="bi bi-bus-front"></i> Public Priority
+            </a>
+            <a href="accident.html" class="nav-link">
+                <i class="bi bi-exclamation-triangle"></i> Emergency Mode
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <small>v1.0 | Smart City System</small>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <nav class="top-navbar">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h5 class="mb-0">
+                    <i class="bi bi-lightbulb"></i> Traffic Signal Simulation
+                </h5>
+                <div class="d-flex align-items-center gap-3">
+                    <span id="currentTime" class="time-display">00:00:00</span>
+                    <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Alert Banner -->
+        <div id="alertBanner" class="alert-banner" style="display: none;"></div>
+
+        <!-- Content Container -->
+        <div class="content-container">
+            <!-- Signal Display -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-4">
+                    <div class="glass-card text-center">
+                        <h5 class="mb-4">
+                            <i class="bi bi-lightbulb"></i> Traffic Light
+                        </h5>
+                        
+                        <!-- Signal Light -->
+                        <div class="signal-container">
+                            <div class="signal-light" id="redLight">
+                                <div class="light-glow red-glow"></div>
+                                <div class="light red-light"></div>
+                            </div>
+                            <div class="signal-light" id="yellowLight">
+                                <div class="light-glow yellow-glow"></div>
+                                <div class="light yellow-light"></div>
+                            </div>
+                            <div class="signal-light" id="greenLight">
+                                <div class="light-glow green-glow"></div>
+                                <div class="light green-light"></div>
+                            </div>
+                        </div>
+
+                        <!-- Status and Timer -->
+                        <div class="mt-4">
+                            <p class="signal-state" id="signalState">RED</p>
+                            <p class="signal-timer">
+                                <span id="timeRemaining">5</span>s
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-play-circle"></i> Signal Controls
+                        </h5>
+                        <div class="d-grid gap-2 mb-4">
+                            <button id="startBtn" class="btn btn-signal btn-success btn-lg">
+                                <i class="bi bi-play-fill"></i> Start Cycle
+                            </button>
+                            <button id="stopBtn" class="btn btn-signal btn-warning btn-lg" disabled>
+                                <i class="bi bi-pause-fill"></i> Stop Cycle
+                            </button>
+                            <button id="resetBtn" class="btn btn-signal btn-secondary btn-lg" disabled>
+                                <i class="bi bi-arrow-clockwise"></i> Reset Signal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signal Information -->
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-info-circle"></i> Cycle Information
+                        </h5>
+                        <table class="info-table">
+                            <tr>
+                                <td><strong>Red Light:</strong></td>
+                                <td>5 seconds</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Yellow Light:</strong></td>
+                                <td>2 seconds</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Green Light:</strong></td>
+                                <td>5 seconds</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Cycle:</strong></td>
+                                <td>12 seconds</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="glass-card">
+                        <h5 class="mb-4">
+                            <i class="bi bi-gear"></i> Signal Status
+                        </h5>
+                        <p class="mb-3">
+                            <strong>Current State:</strong>
+                            <span id="statusDisplay" class="badge bg-secondary">STOPPED</span>
+                        </p>
+                        <p class="mb-3">
+                            <strong>Operation Mode:</strong>
+                            <span id="modeDisplay" class="badge bg-info">NORMAL</span>
+                        </p>
+                        <p class="text-muted">
+                            <small>The signal automatically cycles through Red → Yellow → Green. Stop and reset buttons become available when the signal is running.</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDisplay();
+            updateTime();
+            setInterval(updateTime, 1000);
+            setInterval(updateDisplay, 100);
+        });
+
+        // Update signal display
+        function updateDisplay() {
+            const state = trafficSystem.getState();
+            const currentSignal = state.currentSignal;
+
+            // Update lights
+            document.getElementById('redLight').classList.toggle('active', currentSignal === 'RED');
+            document.getElementById('yellowLight').classList.toggle('active', currentSignal === 'YELLOW');
+            document.getElementById('greenLight').classList.toggle('active', currentSignal === 'GREEN');
+
+            // Update status
+            document.getElementById('signalState').textContent = currentSignal;
+            document.getElementById('timeRemaining').textContent = Math.ceil(state.signalTimer / 1000);
+            document.getElementById('statusDisplay').textContent = state.signalRunning ? 'RUNNING' : 'STOPPED';
+            document.getElementById('modeDisplay').textContent = state.mode.replace('_', ' ');
+
+            // Update button states
+            document.getElementById('startBtn').disabled = state.signalRunning;
+            document.getElementById('stopBtn').disabled = !state.signalRunning;
+            document.getElementById('resetBtn').disabled = state.signalRunning;
+        }
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+        }
+
+        // Event listeners
+        document.getElementById('startBtn').addEventListener('click', () => {
+            trafficSystem.startSignal();
+        });
+
+        document.getElementById('stopBtn').addEventListener('click', () => {
+            trafficSystem.stopSignal();
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            trafficSystem.resetSignal();
+        });
+    </script>
+</body>
+</html>
